@@ -2,6 +2,10 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 
+from docx.document import Document
+from docx import Document as doc_create
+import math2docx
+
 
 
 class Column:
@@ -62,37 +66,54 @@ class Column:
     def nrows(self) -> int:
         return self.__nrows
     
+    def and_op(self, other: Column) -> Column:
+        new_values = tuple(map(lambda vals: int(vals[0] and vals[1]), zip(self.values, other.values, strict=True)))
+        new_col_latex = f"{self.latex} \\cdot {other.latex}"
+        new_col = Column(-1, -1, latex=new_col_latex, values=new_values, first_col=self.first_col)
+        return new_col
+    
+    def or_op(self, other: Column) -> Column:
+        new_values = tuple(map(lambda vals: int(vals[0] or vals[1]), zip(self.values, other.values)))
+        new_col_latex = fr"{self.latex} + {other.latex}"
+        new_col = Column(-1, -1, latex=new_col_latex, values=new_values, first_col=self.first_col)
+        return new_col       
+
+    def __mul__(self, other: Column) -> Column:
+        return self.and_op(other)
+    
+    def __and__(self, other: Column) -> Column:
+        return self.and_op(other)
+    
+    def __or__(self, other: Column) -> Column:
+        self.or_op(other)
+    
+    def __add__(self, other: Column) -> Column:
+        self.or_op(other)
+    
     def __neg__(self) -> Column:
         new_values = tuple(map(lambda x: int(not x), self.values, strict=True))
         new_col_latex = fr"\overline{self.latex}"
         new_col = Column(-1, -1, latex=new_col_latex, values=new_values, first_col=self.first_col)
         return new_col
     
-    def __and__(self, other: Column) -> Column:
-        new_values = tuple(map(lambda vals: int(vals[0] and vals[1]), zip(self.values, other.values, strict=True)))
-        new_col_latex = f"{self.latex} \\cdot {other.latex}"
-        new_col = Column(-1, -1, latex=new_col_latex, values=new_values, first_col=self.first_col)
-        return new_col
+
+def make_table(first_col: Column, document: Document, filename_to_save: str):
+    table = first_col.table
+
+    ncols = len(table)
+    nrows = len(table[0])
+
+    docx_table = document.add_table(rows=nrows, cols=ncols)
+    docx_table.style = "Table Grid"
+
+    for docx_table_row_index in range(nrows):
+        current_row_cells = docx_table.rows[docx_table_row_index].cells
+
+        for docx_table_col_index in range(ncols):
+            current_cell = current_row_cells[docx_table_col_index]
+            current_value = table[docx_table_col_index][docx_table_row_index]
+
+            para = current_cell.add_paragraph()
+            math2docx.add_math(para, str(current_value))
     
-    def __or__(self, other: Column) -> Column:
-        new_values = tuple(map(lambda x, y: int(x or y), zip(self.values, other.values)))
-        new_col_latex = fr"{self.latex}{other.latex}"
-        new_col = Column(-1, -1, latex=new_col_latex, values=new_values, first_col=self.first_col)
-        return new_col
-    
-    
-def make_table(first_col: Column, )
-        
-
-A = Column(1, 2)
-B = Column(2, 2, first_col=A)
-# print((A.__and__(B) ))
-anded = A & B
-# print(((A & B)).table)
-print(A.table)
-
-# print(A.table)
-
-
-# print(A.values)
-# print(B.values)
+    document.save(filename_to_save)
