@@ -3,7 +3,6 @@ from __future__ import annotations
 from collections.abc import Sequence
 
 from docx.document import Document
-from docx import Document as doc_create
 import math2docx
 
 
@@ -35,8 +34,6 @@ class Column:
         else:
             self.__values = tuple(values)
         self.__nrows = len(self.__values)
-
-        # self.__latex = ord('A') - 1 + pos
         
         self.latex = latex or chr(ord('A') - 1 + pos)
         
@@ -46,16 +43,6 @@ class Column:
         else:
             self.table = [[self.latex, *self.values]]
             self.first_col = self
-        
-        # if pos != -1:
-            # self.table.append()
-            # self.table = []
-            # self.table.append([self.latex, *self.values])
-        # else:
-            # self.table.append([latex, values])
-
-        # table.append([self.latex, *self.values])
-        # self.table = table
         
 
     @property
