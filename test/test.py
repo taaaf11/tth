@@ -26,13 +26,7 @@ class TestColumn(unittest.TestCase):
     def test_and(self):
         self.A & self.B
 
-        # resultant_column = ['A \\cdot B', 0, 0, 0, 0, 0, 0, 1, 1]
         resultant_column = [r'A \cdot B', *[0] * 6, 1, 1]
-        # confirmation = [
-            # ['A', 0, 0, 1, 1],
-            # ['B', 0, 1, 0, 1],
-            # [r'A \cdot B', 0, 0, 0, 1]
-        # ]
         confirmation = [
             *self.input_cols,
             resultant_column
@@ -49,8 +43,8 @@ class TestColumn(unittest.TestCase):
     
     def test_or(self):
         self.A | self.B
-        # resultant_column = ['A + B', 0, 0, 1, 1, 1, 1, 1, 1]
         resultant_column = ['A + B', 0, 0, *[1] * 6]
+
         confirmation = [
             *self.input_cols,
             resultant_column
@@ -67,8 +61,8 @@ class TestColumn(unittest.TestCase):
         
     def test_not(self):
         ~(self.A)
-        # resultant_column = [r'\overline{A}', 1, 1, 1, 1, 0, 0, 0, 0]
         resultant_column = [r'\overline{A}', *[1] * 4, *[0] * 4]
+
         confirmation = [
             *self.input_cols,
             resultant_column

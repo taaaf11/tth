@@ -6,7 +6,7 @@ from docx import Document as doc_create
 
 
 class Column:
-    def __init__(self, pos: int, total_inputs: int, latex: str | None = None, values: Sequence[int] | None = None, first_col: Column | None= None):
+    def __init__(self, pos: int, total_inputs: int, first_col: Column | None = None, latex: str | None = None, values: Sequence[int] | None = None):
         is_input_variable_column = pos != -1
         if is_input_variable_column:
             if pos > total_inputs or pos == 0:
