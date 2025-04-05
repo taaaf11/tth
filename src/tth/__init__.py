@@ -1,1 +1,1 @@
-from src.tth.source import Column, make_table_document
+from .source import Column, make_table_document
