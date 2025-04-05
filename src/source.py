@@ -2,9 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Sequence
 
-from docx.document import Document
-import math2docx
-
+from docx import Document as doc_create
 
 
 class Column:

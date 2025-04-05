@@ -12,7 +12,7 @@ authors = [
 ]
 dependencies = [
     "python-docx == 1.1.2",
-    "math2docx == 2.0.2"
+    # "math2docx == 2.0.2"
 ]
 classifiers = [
   # Indicate who your project is intended for
