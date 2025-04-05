@@ -88,6 +88,9 @@ def make_table(first_col: Column, document: Document, filename_to_save: str):
     ncols = len(table)
     nrows = len(table[0])
 
+    # `table` variable contains data for creating
+    # the table in Word document.
+    # `docx_table` is the table in Word document.
     docx_table = document.add_table(rows=nrows, cols=ncols)
     docx_table.style = "Table Grid"
 
@@ -98,7 +101,10 @@ def make_table(first_col: Column, document: Document, filename_to_save: str):
             current_cell = current_row_cells[docx_table_col_index]
             current_value = table[docx_table_col_index][docx_table_row_index]
 
-            para = current_cell.add_paragraph()
-            math2docx.add_math(para, str(current_value))
+            current_cell      \
+            .add_paragraph()  \
+            .add_run(
+                text=str(current_value)
+            )
     
     document.save(filename_to_save)
