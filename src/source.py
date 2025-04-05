@@ -7,8 +7,8 @@ from docx import Document as doc_create
 
 class Column:
     def __init__(self, pos: int, total_inputs: int, latex: str | None = None, values: Sequence[int] | None = None, first_col: Column | None= None):
-        self.pos = pos
-        if not (pos == -1 and total_inputs == -1):
+        is_input_variable_column = pos != -1
+        if is_input_variable_column:
             if pos > total_inputs or pos == 0:
                 raise Exception("Invalid column position")
 
@@ -41,7 +41,6 @@ class Column:
         else:
             self.table = [[self.latex, *self.values]]
             self.first_col = self
-        
 
     @property
     def values(self) -> tuple[int, ...]:
@@ -61,7 +60,13 @@ class Column:
         new_values = tuple(map(lambda vals: int(vals[0] or vals[1]), zip(self.values, other.values)))
         new_col_latex = f"{self.latex} + {other.latex}"
         new_col = Column(-1, -1, latex=new_col_latex, values=new_values, first_col=self.first_col)
-        return new_col       
+        return new_col
+    
+    def not_op(self) -> Column:  
+        new_values = tuple(map(lambda x: int(not x), self.values))
+        new_col_latex = fr"\overline{{{self.latex}}}"
+        new_col = Column(-1, -1, latex=new_col_latex, values=new_values, first_col=self.first_col)
+        return new_col
 
     def __mul__(self, other: Column) -> Column:
         return self.and_op(other)
@@ -70,17 +75,14 @@ class Column:
         return self.and_op(other)
     
     def __or__(self, other: Column) -> Column:
-        self.or_op(other)
+        return self.or_op(other)
     
     def __add__(self, other: Column) -> Column:
-        self.or_op(other)
+        return self.or_op(other)
     
-    def __neg__(self) -> Column:
-        new_values = tuple(map(lambda x: int(not x), self.values))
-        new_col_latex = fr"\overline{{{self.latex}}}"
-        new_col = Column(-1, -1, latex=new_col_latex, values=new_values, first_col=self.first_col)
-        return new_col
-    
+    def __invert__(self, other: Column) -> Column:
+        return self.not_op(other)
+
 
 def make_table_document(first_col: Column, filename_to_save: str):
     document = doc_create()
@@ -109,3 +111,12 @@ def make_table_document(first_col: Column, filename_to_save: str):
             )
     
     document.save(filename_to_save)
+
+
+
+A = Column(1, 2)
+B = Column(2, 2, first_col=A)
+
+-A & B
+
+make_table_document(A, "hello.docx")
