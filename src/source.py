@@ -53,13 +53,13 @@ class Column:
     
     def and_op(self, other: Column) -> Column:
         new_values = tuple(map(lambda vals: int(vals[0] and vals[1]), zip(self.values, other.values, strict=True)))
-        new_col_latex = f"{self.latex} \\cdot {other.latex}"
+        new_col_latex = fr"{self.latex} \cdot {other.latex}"
         new_col = Column(-1, -1, latex=new_col_latex, values=new_values, first_col=self.first_col)
         return new_col
     
     def or_op(self, other: Column) -> Column:
         new_values = tuple(map(lambda vals: int(vals[0] or vals[1]), zip(self.values, other.values)))
-        new_col_latex = fr"{self.latex} + {other.latex}"
+        new_col_latex = f"{self.latex} + {other.latex}"
         new_col = Column(-1, -1, latex=new_col_latex, values=new_values, first_col=self.first_col)
         return new_col       
 
@@ -76,8 +76,8 @@ class Column:
         self.or_op(other)
     
     def __neg__(self) -> Column:
-        new_values = tuple(map(lambda x: int(not x), self.values, strict=True))
-        new_col_latex = fr"\overline{self.latex}"
+        new_values = tuple(map(lambda x: int(not x), self.values))
+        new_col_latex = fr"\overline{{{self.latex}}}"
         new_col = Column(-1, -1, latex=new_col_latex, values=new_values, first_col=self.first_col)
         return new_col
     
