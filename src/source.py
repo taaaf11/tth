@@ -82,7 +82,8 @@ class Column:
         return new_col
     
 
-def make_table(first_col: Column, document: Document, filename_to_save: str):
+def make_table_document(first_col: Column, filename_to_save: str):
+    document = doc_create()
     table = first_col.table
 
     ncols = len(table)
