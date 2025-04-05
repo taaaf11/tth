@@ -80,8 +80,8 @@ class Column:
     def __add__(self, other: Column) -> Column:
         return self.or_op(other)
     
-    def __invert__(self, other: Column) -> Column:
-        return self.not_op(other)
+    def __invert__(self) -> Column:
+        return self.not_op()
 
 
 def make_table_document(first_col: Column, filename_to_save: str):
@@ -111,12 +111,3 @@ def make_table_document(first_col: Column, filename_to_save: str):
             )
     
     document.save(filename_to_save)
-
-
-
-A = Column(1, 2)
-B = Column(2, 2, first_col=A)
-
--A & B
-
-make_table_document(A, "hello.docx")
