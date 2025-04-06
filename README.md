@@ -3,6 +3,14 @@
 
 It allows python syntax for creating columns of truth table.
 
+## Syntax for operations
+| Operation | Operator in Python |
+| --------- | ------------------ |
+| AND       | `&`, `*`           |
+| OR        | `|`, `+`           |
+| NOT       | `~`                |
+
+## Example
 For example, to create a truth table for the following:  
 ```math
 A \overline{B} C
@@ -39,8 +47,7 @@ tth "A & ~B & C" [filename_to_save_table_to.docx]
 
 Giving filename is not mandatory. If not specified, it defaults to `truth-table.docx`.
 
-### NOTE
 > [!CAUTION]
-> NEVER put anything other than a logical expression into the `tth` command 
+> NEVER pass anything other than a logical expression to the `tth` command 
 > given above. The author is not responsible for any damage caused by those
 > improper usage of the command.
