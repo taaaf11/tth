@@ -111,3 +111,23 @@ def make_table_document(first_col: Column, filename_to_save: str):
             )
     
     document.save(filename_to_save)
+
+
+def create_doc_from_expression(expression: str, filename: str) -> None:
+    input_vars = list(filter(lambda item: item.isalpha(), expression.split()))
+    total_inputs = len(input_vars)
+
+    input_columns = []
+    first_col = None
+    
+    for pos in range(1, len(input_vars) + 1):
+        if len(input_columns) > 0:
+            first_col = input_columns[0]
+        input_columns.append(Column(pos, total_inputs, first_col))
+    
+    eval_globals = {column.latex: column for column in input_columns}
+    
+    # user's at their own risk ¯\_(ツ)_/¯
+    eval(expression, globals=eval_globals)
+    
+    make_table_document(first_col, filename)

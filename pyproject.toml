@@ -19,3 +19,6 @@ classifiers = [
   "Intended Audience :: Users",
   "Private :: Do Not Upload"
 ]
+
+[project.scripts]
+tth = "tth.cli:main"
