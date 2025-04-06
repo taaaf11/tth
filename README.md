@@ -1,5 +1,4 @@
 # tth
-***
 `tth` is a python library for creating truth tables in Microsoft Word documents.
 
 It allows python syntax for creating columns of truth table.
