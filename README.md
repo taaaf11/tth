@@ -6,8 +6,8 @@ It allows python syntax for creating columns of truth table.
 ## Syntax for operations
 | Operation | Operator in Python |
 | --------- | ------------------ |
-| AND       | `&`, `*`           |
-| OR        | `\|`, `+`          |
+| AND       | `&` or `*`         |
+| OR        | `\|` or `+`        |
 | NOT       | `~`                |
 
 ## Example
@@ -42,6 +42,7 @@ Note that providing kw arguments is not required, they are there to help you und
 
 You can create document directly from command line:  
 ```bash
+# the spaces between parts of the expression are required
 tth "A & ~B & C" [filename_to_save_table_to.docx]
 ```
 Note that the above cli command uses `eval` built-in function to
