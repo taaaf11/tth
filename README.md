@@ -29,3 +29,18 @@ make_table_document(first_col=A, filename_to_save="file_name.docx")
 ```
 
 Note that providing kw arguments is not required, they are there to help you understand the API.
+
+**OR**
+
+You can create document directly from command line:  
+```bash
+tth "A & ~B & C" [filename_to_save_table_to.docx]
+```
+
+Giving filename is not mandatory. If not specified, it defaults to `truth-table.docx`.
+
+### NOTE
+> [!CAUTION]
+> NEVER put anything other than a logical expression into the `tth` command 
+> given above. The author is not responsible for any damage caused by those
+> improper usage of the command.
