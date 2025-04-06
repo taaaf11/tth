@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 
 [project]
-name = "truth_table_new_helper"
+name = "tth"
 version = "0.0.1"
 description = "A simple package to create MS Word tables with truth tables of logic gates."
 authors = [
