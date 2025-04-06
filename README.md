@@ -3,7 +3,7 @@
 
 It allows python syntax for creating columns of truth table.
 
-For example, to create a truth table for the following:
+For example, to create a truth table for the following:  
 $$
 A \overline{B} C
 $$
