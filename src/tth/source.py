@@ -120,7 +120,7 @@ def create_doc_from_expression(expression: str, filename: str) -> None:
     without validation, so be careful!.
     """
 
-    input_vars = list(filter(lambda item: item.isalpha(), expression.split()))
+    input_vars = [char for char in expression.split() if char.isalpha()]
     total_inputs = len(input_vars)
 
     input_columns = []
