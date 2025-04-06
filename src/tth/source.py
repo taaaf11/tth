@@ -114,6 +114,12 @@ def make_table_document(first_col: Column, filename_to_save: str):
 
 
 def create_doc_from_expression(expression: str, filename: str) -> None:
+    """
+    Create document directly by passing expression as a string.
+    Note that the provided expression is passed directly to `eval`,
+    without validation, so be careful!.
+    """
+
     input_vars = list(filter(lambda item: item.isalpha(), expression.split()))
     total_inputs = len(input_vars)
 

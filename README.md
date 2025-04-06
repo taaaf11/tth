@@ -44,6 +44,9 @@ You can create document directly from command line:
 ```bash
 tth "A & ~B & C" [filename_to_save_table_to.docx]
 ```
+Note that the above cli command uses `eval` built-in function to
+evaluate the table. So DON'T pass ANYTHING other than a logical expression
+to the command.
 
 Giving filename is not mandatory. If not specified, it defaults to `truth-table.docx`.
 
