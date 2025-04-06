@@ -7,7 +7,7 @@ It allows python syntax for creating columns of truth table.
 | Operation | Operator in Python |
 | --------- | ------------------ |
 | AND       | `&`, `*`           |
-| OR        | `|`, `+`           |
+| OR        | `\|`, `+`          |
 | NOT       | `~`                |
 
 ## Example
