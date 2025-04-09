@@ -43,15 +43,12 @@ Note that providing kw arguments is not required, they are there to help you und
 You can create document directly from command line:  
 ```bash
 # the spaces between parts of the expression are required
-tth "A & ~B & C" [filename_to_save_table_to.docx]
+tth "A & ~B & C" filename_to_save_table_to.docx
 ```
-Note that the above cli command uses `eval` built-in function to
-evaluate the table. So DON'T pass ANYTHING other than a logical expression
-to the command.
 
 Giving filename is not mandatory. If not specified, it defaults to `truth-table.docx`.
 
 > [!CAUTION]
 > NEVER pass anything other than a logical expression to the `tth` command 
-> given above. The author is not responsible for any damage caused by those
-> improper usage of the command.
+> given above. It uses python's `eval` function under the hood. The author is not responsible
+> for any damage caused by improper usage of the package.
