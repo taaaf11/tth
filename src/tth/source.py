@@ -120,7 +120,7 @@ def create_doc_from_expression(expression: str, filename: str) -> None:
     without validation, so be careful!.
     """
 
-    input_vars = [char for char in expression if char.isalpha()]
+    input_vars = sorted({char for char in expression if char.isalpha()})
     total_inputs = len(input_vars)
 
     input_columns = []
